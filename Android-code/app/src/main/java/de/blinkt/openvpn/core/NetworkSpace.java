@@ -6,10 +6,7 @@
 package de.blinkt.openvpn.core;
 
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.text.TextUtils;
-
-import com.vasilkoff.easyvpnfree.BuildConfig;
+import androidx.annotation.NonNull;
 
 import java.math.BigInteger;
 import java.net.Inet6Address;

@@ -5,21 +5,17 @@ import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 
 import com.vasilkoff.easyvpnfree.App;
 import com.vasilkoff.easyvpnfree.R;
 import com.vasilkoff.easyvpnfree.database.DBHelper;
-import com.vasilkoff.easyvpnfree.model.Country;
 import com.vasilkoff.easyvpnfree.model.Server;
 import com.vasilkoff.easyvpnfree.util.CountriesNames;
 import com.vasilkoff.easyvpnfree.util.PropertiesService;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import static com.vasilkoff.easyvpnfree.R.id.toolbar;
 
 /**
  * Created by Kusenko on 13.12.2016.
