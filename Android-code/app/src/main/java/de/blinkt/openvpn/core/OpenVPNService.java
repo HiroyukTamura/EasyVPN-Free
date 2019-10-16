@@ -156,9 +156,6 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
     }
 
     private void showNotification(final String msg, String tickerText, boolean lowpriority, long when, ConnectionStatus status) {
-        String ns = Context.NOTIFICATION_SERVICE;
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
-
 
         //int icon = getIconByConnectionStatus(status);
         android.app.Notification.Builder nbuilder = new Notification.Builder(this);
@@ -185,10 +182,6 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
         else
             nbuilder = new Notification.Builder(this);
 
-
-        // Try to set the priority available since API 16 (Jellybean)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-            jbNotificationExtras(lowpriority, nbuilder);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             lpNotificationExtras(nbuilder);
@@ -888,14 +881,6 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
     private boolean isAndroidTunDevice(String device) {
         return device != null &&
                 (device.startsWith("tun") || "(null)".equals(device) || "vpnservice-tun".equals(device));
-    }
-
-    public void setMtu(int mtu) {
-        mMtu = mtu;
-    }
-
-    public void setLocalIP(CIDRIP cdrip) {
-        mLocalIP = cdrip;
     }
 
     public void setLocalIP(String local, String netmask, int mtu, String mode) {

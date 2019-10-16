@@ -118,6 +118,7 @@ public class NetworkSpace {
         }
 
 
+        @android.annotation.NonNull
         @Override
         public String toString() {
             //String in = included ? "+" : "-";
