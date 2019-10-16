@@ -8,6 +8,7 @@ package de.blinkt.openvpn.core;
 import android.Manifest.permission;
 import android.annotation.TargetApi;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.UiModeManager;
@@ -17,6 +18,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.VpnService;
 import android.os.Binder;
@@ -32,6 +34,8 @@ import android.system.OsConstants;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
 
 import com.vasilkoff.easyvpnfree.BuildConfig;
 
@@ -68,6 +72,9 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
     public static final String DISCONNECT_VPN = "de.blinkt.openvpn.DISCONNECT_VPN";
     private static final String PAUSE_VPN = "de.blinkt.openvpn.PAUSE_VPN";
     private static final String RESUME_VPN = "de.blinkt.openvpn.RESUME_VPN";
+    public static String SERVICE_CHANNEL_ID = "SERVICE_CHANNEL_ID";
+    public static String NTF_NAME = "NTF_NAME";
+
     private static final int OPENVPN_STATUS = 1;
     private static boolean mNotificationAlwaysVisible = false;
     private final Vector<String> mDnslist = new Vector<>();
@@ -154,8 +161,8 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
 
 
         //int icon = getIconByConnectionStatus(status);
-        int icon = R.drawable.ic_app_notif;
         android.app.Notification.Builder nbuilder = new Notification.Builder(this);
+        nbuilder.setSmallIcon(android.R.drawable.star_on);
 
         if (mProfile != null)
             nbuilder.setContentTitle(getString(R.string.notification_title, mProfile.mName));
@@ -166,11 +173,17 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
         nbuilder.setOnlyAlertOnce(true);
         nbuilder.setOngoing(true);
         nbuilder.setContentIntent(getLogPendingIntent());
-        nbuilder.setSmallIcon(icon);
 
 
         if (when != 0)
             nbuilder.setWhen(when);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            setNotificationChannel(SERVICE_CHANNEL_ID, NTF_NAME);
+            nbuilder = new Notification.Builder(this, SERVICE_CHANNEL_ID);
+        }
+        else
+            nbuilder = new Notification.Builder(this);
 
 
         // Try to set the priority available since API 16 (Jellybean)
@@ -183,11 +196,11 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
         if (tickerText != null && !tickerText.equals(""))
             nbuilder.setTicker(tickerText);
 
-        @SuppressWarnings("deprecation")
-        Notification notification = nbuilder.getNotification();
+
+        Notification notification = nbuilder.build();
 
 
-        mNotificationManager.notify(OPENVPN_STATUS, notification);
+//        mNotificationManager.notify(OPENVPN_STATUS, notification);
         startForeground(OPENVPN_STATUS, notification);
 
         // Check if running on a TV
@@ -204,6 +217,15 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
                     mlastToast.show();
                 }
             });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setNotificationChannel(String channelId, String channelName){
+        NotificationChannel chan = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT);
+        chan.setLightColor(Color.BLUE) ;
+        chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+        NotificationManager service = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        service.createNotificationChannel(chan);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

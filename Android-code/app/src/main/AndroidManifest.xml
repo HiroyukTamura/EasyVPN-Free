@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.android.vending.BILLING" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".App"
@@ -48,7 +49,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".activity.BookmarkServerListActivity"></activity>
+        <activity android:name=".activity.BookmarkServerListActivity" />
     </application>
 
 </manifest>
