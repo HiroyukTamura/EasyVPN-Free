@@ -25,10 +25,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.crashlytics.android.answers.Answers;
-
-import com.crashlytics.android.answers.CustomEvent;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.vasilkoff.easyvpnfree.BuildConfig;
@@ -86,9 +82,6 @@ public class HomeActivity extends BaseActivity {
         countryList = dbHelper.getUniqueCountries();
 
         long totalServ = dbHelper.getCount();
-        if (!BuildConfig.DEBUG)
-            Answers.getInstance().logCustom(new CustomEvent("Total servers")
-                .putCustomAttribute("Total servers", totalServ));
 
         String totalServers = String.format(getResources().getString(R.string.total_servers), totalServ);
         ((TextView) findViewById(R.id.homeTotalServers)).setText(totalServers);

@@ -17,8 +17,6 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONArrayRequestListener;
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.CustomEvent;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.vasilkoff.easyvpnfree.App;
@@ -257,10 +255,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         mTracker.setScreenName(getClass().getSimpleName());
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
-
-        if (!BuildConfig.DEBUG)
-            Answers.getInstance().logCustom(new CustomEvent("Viewed activity")
-                    .putCustomAttribute("activity", getClass().getSimpleName()));
     }
 
     @Override
@@ -369,10 +363,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public static void sendTouchButton(String button) {
-        if (!BuildConfig.DEBUG)
-            Answers.getInstance().logCustom(new CustomEvent("Touches buttons")
-                .putCustomAttribute("Button", button));
-
         mTracker.send(new HitBuilders.EventBuilder()
             .setCategory("Touches buttons")
             .setAction(button)

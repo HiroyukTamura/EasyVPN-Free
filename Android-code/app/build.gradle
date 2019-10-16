@@ -2,29 +2,21 @@ buildscript {
     repositories {
         maven { url 'https://maven.fabric.io/public' }
     }
-
-    dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
-    }
 }
+
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
-
-repositories {
-    maven { url 'https://maven.fabric.io/public' }
-}
 
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
 
     defaultConfig {
         applicationId "com.vasilkoff.easyvpnfree"
         minSdkVersion 17
-        targetSdkVersion 24
-        versionCode 50
-        versionName "1.6"
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0.0"
         setProperty("archivesBaseName", "easyvpnfree-$versionName-$versionCode")
     }
 
@@ -81,8 +73,5 @@ dependencies {
     compile 'org.mapsforge:mapsforge-map-android:0.6.1'
     compile 'com.caverock:androidsvg:1.2.2-beta-1'
     testCompile 'junit:junit:4.12'
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
-        transitive = true
-    }
     compile 'com.google.android.gms:play-services-analytics:10.0.1'
 }

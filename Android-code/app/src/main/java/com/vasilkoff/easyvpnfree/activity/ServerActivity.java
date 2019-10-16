@@ -39,9 +39,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.CustomEvent;
 import com.vasilkoff.easyvpnfree.BuildConfig;
 import com.vasilkoff.easyvpnfree.R;
 import com.vasilkoff.easyvpnfree.model.Server;
@@ -426,11 +423,6 @@ public class ServerActivity extends BaseActivity {
             try {
                 String download = trafficIn.getText().toString();
                 download = download.substring(download.lastIndexOf(":") + 2);
-
-                Answers.getInstance().logCustom(new CustomEvent("Connection info")
-                        .putCustomAttribute("Country", connectedServer.getCountryLong())
-                        .putCustomAttribute("Download", download)
-                        .putCustomAttribute("Time", stopwatch.getElapsedTime()));
             } catch (Exception e) {
 
             }
