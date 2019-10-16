@@ -24,20 +24,24 @@ android {
         disable 'MissingTranslation'
     }
 
+    flavorDimensions "version"
     productFlavors {
         free {
+            dimension "version"
             applicationId "com.vasilkoff.easyvpnfree"
             resValue "string", "app_name", "Easy VPN Free"
             resValue "string", "notification_title", "Easy VPN Free - %s"
         }
 
         pro {
+            dimension "version"
             applicationId "com.vasilkoff.easyvpn"
             resValue "string", "app_name", "Easy VPN"
             resValue "string", "notification_title", "Easy VPN - %s"
         }
 
         underground {
+            dimension "version"
             applicationId "com.vasilkoff.easyvpnunderground"
             resValue "string", "app_name", "Easy VPN"
             resValue "string", "notification_title", "Easy VPN - %s"
@@ -60,18 +64,17 @@ android {
 
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:support-v4:24.2.1'
-    compile 'com.android.support:design:24.2.1'
-    compile 'com.android.support:recyclerview-v7:24.2.1'
-    compile 'com.android.support:cardview-v7:24.2.1'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:25.3.1'
+    implementation 'com.android.support:support-v4:25.3.1'
+    implementation 'com.android.support:design:25.3.1'
+    implementation 'com.android.support:recyclerview-v7:25.3.1'
+    implementation 'com.android.support:cardview-v7:25.3.1'
 
-    compile 'com.daimajia.numberprogressbar:library:1.2@aar'
-    compile 'com.amitshekhar.android:android-networking:0.2.0'
-    compile 'com.google.code.gson:gson:2.7'
-    compile 'org.mapsforge:mapsforge-map-android:0.6.1'
-    compile 'com.caverock:androidsvg:1.2.2-beta-1'
-    testCompile 'junit:junit:4.12'
-    compile 'com.google.android.gms:play-services-analytics:10.0.1'
+    implementation 'com.daimajia.numberprogressbar:library:1.4@aar'
+    implementation 'com.amitshekhar.android:android-networking:0.2.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'org.mapsforge:mapsforge-map-android:0.12.0'
+    implementation 'com.caverock:androidsvg:1.4'
+    testImplementation 'junit:junit:4.12'
 }

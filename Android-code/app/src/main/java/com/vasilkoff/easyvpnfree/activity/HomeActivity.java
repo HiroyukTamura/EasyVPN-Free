@@ -146,11 +146,9 @@ public class HomeActivity extends BaseActivity {
     public void homeOnClick(View view) {
         switch (view.getId()) {
             case R.id.homeBtnChooseCountry:
-                sendTouchButton("homeBtnChooseCountry");
                 chooseCountry();
                 break;
             case R.id.homeBtnRandomConnection:
-                sendTouchButton("homeBtnRandomConnection");
                 Server randomServer = getRandomServer();
                 if (randomServer != null) {
                     newConnecting(randomServer, true, true);

@@ -17,8 +17,6 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONArrayRequestListener;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
 import com.vasilkoff.easyvpnfree.App;
 import com.vasilkoff.easyvpnfree.BuildConfig;
 import com.vasilkoff.easyvpnfree.R;
@@ -78,8 +76,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     static DBHelper dbHelper;
     Map<String, String> localeCountries;
 
-    static Tracker mTracker;
-
     @Override
     public void setContentView(int layoutResID)
     {
@@ -129,7 +125,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         localeCountries = CountriesNames.getCountries();
 
         App application = (App) getApplication();
-        mTracker = application.getDefaultTracker();
     }
 
     @Override
@@ -252,9 +247,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (BuildConfig.FLAVOR == "free") {
             initPurchaseHelper();
         }
-
-        mTracker.setScreenName(getClass().getSimpleName());
-        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override
@@ -290,7 +282,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), AboutActivity.class));
                 return true;
             case R.id.actionShare:
-                sendTouchButton("Share");
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_text));
@@ -305,12 +296,10 @@ public abstract class BaseActivity extends AppCompatActivity {
                 if (premiumServers) {
                     startActivity(new Intent(this, ServersInfo.class));
                 } else {
-                    sendTouchButton("GetMoreServers");
                     launchPurchase(moreServersSKU, PREMIUM_SERVERS_REQUEST);
                 }
                 return true;
             case R.id.action_settings:
-                sendTouchButton("Settings");
                 startActivity(new Intent(this, MyPreferencesActivity.class));
                 return true;
             case R.id.action_bookmarks:
@@ -360,13 +349,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             intent.putExtra("autoConnection", autoConnection);
             startActivity(intent);
         }
-    }
-
-    public static void sendTouchButton(String button) {
-        mTracker.send(new HitBuilders.EventBuilder()
-            .setCategory("Touches buttons")
-            .setAction(button)
-            .build());
     }
 
     protected void ipInfoResult() {}

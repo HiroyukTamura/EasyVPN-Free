@@ -151,7 +151,6 @@ public class ServerActivity extends BaseActivity {
         unblockCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendTouchButton("adsFiltering");
                 launchPurchase(adblockSKU, ADBLOCK_REQUEST);
             }
         });
@@ -358,7 +357,6 @@ public class ServerActivity extends BaseActivity {
     public void serverOnClick(View view) {
         switch (view.getId()) {
             case R.id.serverConnect:
-                sendTouchButton("serverConnect");
                 if (checkStatus()) {
                     stopVpn();
                 } else {
@@ -366,12 +364,10 @@ public class ServerActivity extends BaseActivity {
                 }
                 break;
             case R.id.serverBtnCheckIp:
-                sendTouchButton("serverBtnCheckIp");
                 Intent browse = new Intent( Intent.ACTION_VIEW , Uri.parse(getString(R.string.url_check_ip)));
                 startActivity(browse);
                 break;
             case R.id.serverBookmark:
-                sendTouchButton("serverBookmark");
 
                 bookmark.startAnimation(AnimationUtils.loadAnimation(this, R.anim.scale));
                 if (dbHelper.checkBookmark(currentServer)) {
@@ -574,7 +570,6 @@ public class ServerActivity extends BaseActivity {
         marketButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendTouchButton("successPopUpBtnPlayMarket");
                 final String appPackageName = getPackageName();
                 try {
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
@@ -589,14 +584,12 @@ public class ServerActivity extends BaseActivity {
         ((Button)view.findViewById(R.id.successPopUpBtnBrowser)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendTouchButton("successPopUpBtnBrowser");
                 startActivity( new Intent( Intent.ACTION_VIEW, Uri.parse("http://google.com")));
             }
         });
         ((Button)view.findViewById(R.id.successPopUpBtnDesktop)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendTouchButton("successPopUpBtnDesktop");
                 Intent startMain = new Intent(Intent.ACTION_MAIN);
                 startMain.addCategory(Intent.CATEGORY_HOME);
                 startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -606,7 +599,6 @@ public class ServerActivity extends BaseActivity {
         ((Button)view.findViewById(R.id.successPopUpBtnClose)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendTouchButton("successPopUpBtnClose");
                 popupWindow.dismiss();
             }
         });
